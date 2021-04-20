@@ -20,23 +20,34 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 
-using BH.oM.Data.Requests;
+using BH.oM.Adapters.Revit.Requests;
+using BH.oM.Base;
+using BH.oM.Reflection.Attributes;
+using System;
 using System.ComponentModel;
 
-namespace BH.oM.Adapters.Revit.Requests
+namespace BH.Engine.Adapters.Revit
 {
-    [Description("IRequest that filters all elements from a Revit link with given file name/path, Name parameter value or ElementId.")]
-    public class FilterByLink : IRequest
+    public static partial class Create
     {
         /***************************************************/
-        /****                Properties                 ****/
+        /****              Public methods               ****/
         /***************************************************/
 
-        [Description("Name of the link file (alternatively whole file path, Name parameter value or ElementId) to pull from, case insensitive.")]
-        public virtual string LinkName { get; set; } = "";
-
-        [Description("If true: only perfect, case sensitive text match will be accepted. If false: capitals and small letters will be treated as equal.")]
-        public virtual bool CaseSensitive { get; set; } = true;
+        [Description("Creates IRequest that filters elements from the given Revit link instance.")]
+        [Input("linkInstance", "BHoMObject that represents the pulled Revit link instance (contains its ElementId in RevitIdentifiers fragment).")]
+        [Output("request", "Created request.")]
+        public static FilterByLink FilterByLink(IBHoMObject linkInstance)
+        {
+            int elementId = linkInstance.ElementId();
+            if (elementId == -1)
+            {
+                BH.Engine.Reflection.Compute.RecordError($"Valid ElementId has not been found. BHoM Guid: {linkInstance.BHoM_Guid}");
+                return null;
+            }
+            else
+                return new FilterByLink { LinkName = elementId.ToString() };
+        }
 
         /***************************************************/
     }

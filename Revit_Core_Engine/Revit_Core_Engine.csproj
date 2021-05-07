@@ -326,7 +326,12 @@
     <Compile Include="Convert\Physical\ToRevit\Rebar.cs" />
     <Compile Include="Create\FamilyInstance\AdaptiveComponent.cs" />
     <Compile Include="Create\FamilyInstance\FamilyInstance.cs" />
+    <Compile Include="Create\BoundingRectangle.cs" />
     <Compile Include="Create\ReferencePlane.cs" />
+    <Compile Include="Create\SectionBoundingBox.cs" />
+    <Compile Include="Create\View\View3d.cs" />
+    <Compile Include="Create\View\ViewPlan.cs" />
+    <Compile Include="Create\View\ViewSection.cs" />
     <Compile Include="Query\CableTraySectionProfile.cs" />
     <Compile Include="Query\CableTraySectionProperty.cs" />
     <Compile Include="Query\CurtainWallCurves.cs" />
@@ -415,6 +420,7 @@
     <Compile Include="Query\LocationCurve.cs" />
     <Compile Include="Query\ReferenceIdentifier.cs" />
     <Compile Include="Query\StructuralType.cs" />
+    <Compile Include="Query\ViewFamilyType.cs" />
     <Compile Include="Query\Workset.cs" />
     <Compile Include="Create\CurveArray.cs" />
     <Compile Include="Create\Options.cs" />
@@ -564,7 +570,6 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(TargetDir)$(TargetFileName)"  "C:\\ProgramData\\BHoM\\Assemblies" /Y</PostBuildEvent>
